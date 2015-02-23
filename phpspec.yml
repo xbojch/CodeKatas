@@ -1,0 +1,6 @@
+suites:
+  xbojch:
+    namespace: xbojch
+    psr4_prefix: xbojch
+    src_path: ./classes
+    spec_path: .
