@@ -62,73 +62,11 @@ class Program
     {
         foreach ($this->items as $item) {
 
-            switch($item->name) {
-                case 'Aged Brie':
-                    $this->brie($item);
-                    break;
+            $itemObj = ItemFactory::makeItem($item->name, $item->sellIn, $item->quality);
+            $itemObj->tick();
 
-                case 'Sulfuras, Hand of Ragnaros':
-                    $this->sulfuras($item);
-                    break;
-
-                case 'Backstage passes to a TAFKAL80ETC concert':
-                    $this->backstage($item);
-                    break;
-
-                default:
-                    $this->normal($item);
-                    break;
-            }
-
+            $item->sellIn = $itemObj->getSellIn();
+            $item->quality = $itemObj->getQuality();
         }
-    }
-
-    private function normal($item)
-    {
-        $item->sellIn -= 1;
-
-        if ($item->quality == 0) return $item;
-
-        $item->quality -= 1;
-
-        if ($item->sellIn <=0) $item->quality -= 1;
-
-        return $item;
-    }
-
-    private function brie($item)
-    {
-        $item->sellIn -= 1;
-
-        if ($item->quality >= 50) return $item;
-
-        $item->quality += 1;
-
-        if ($item->sellIn < 0) $item->quality += 1;
-
-        return $item;
-    }
-
-    private function sulfuras($item)
-    {
-        return $item;
-    }
-
-    private function backstage($item)
-    {
-        $item->sellIn -= 1;
-
-        if ($item->quality >= 50) return $item;
-        if ($item->sellIn < 0) {
-            $item->quality = 0;
-            return $item;
-        }
-
-        $item->quality +=  1;
-
-        if ($item->sellIn < 10) $item->quality += 1;
-        if ($item->sellIn < 5) $item->quality += 1;
-
-        return $item;
     }
 }

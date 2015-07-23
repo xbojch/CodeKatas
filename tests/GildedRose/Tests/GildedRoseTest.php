@@ -140,5 +140,16 @@ class GildedRoseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(80, $item->quality);
     }
 
+    /**
+     * @test
+     */
+    public function theQualityOfConjuredItemDegradesTwiceAsFast() {
+        $program = new Program(array(new Item(array( 'name' => 'Flying duck from a magic spell', 'sellIn' => 5, 'quality' => 30))));
+        $program->UpdateQuality();
+
+        $item = $program->getItems()[0];
+        $this->assertEquals(4, $item->sellIn);
+        $this->assertEquals(28, $item->quality);
+    }
 }
 
