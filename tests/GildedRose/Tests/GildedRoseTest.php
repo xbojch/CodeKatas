@@ -151,5 +151,17 @@ class GildedRoseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4, $item->sellIn);
         $this->assertEquals(28, $item->quality);
     }
+
+    /**
+     * @test
+     */
+    public function theQualityofConjuredItemIsNeverBelowZero() {
+        $program = new Program(array(new Item(array('name' => 'Flying duck from a magic spell', 'sellIn' => 2, 'quality' => 1))));
+        $program->UpdateQuality();
+
+        $item = $program->getItems()[0];
+        $this->assertEquals(0, $item->quality);
+        $this->assertEquals(1, $item->sellIn);
+    }
 }
 

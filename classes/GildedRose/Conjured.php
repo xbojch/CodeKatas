@@ -8,8 +8,7 @@ class Conjured extends BaseItem
     {
         $this->sellIn -= 1;
 
-        if ($this->quality >= 50) return;
-        if ($this->sellIn < 0) {
+        if ($this->quality <= 2) {
             $this->quality = 0;
             return;
         }
